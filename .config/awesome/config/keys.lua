@@ -3,6 +3,7 @@ local awful = require("awful")
 local hotkeys_popup = require("awful.hotkeys_popup")
 
 local tag_template = require("modules.tag_template")
+local screen_swapper = require("modules.screen_swapper")
 
 
 local keys = {}
@@ -81,6 +82,9 @@ keys.globalkeys = gears.table.join(
     awful.key({ modkey },            "r",     function () awful.spawn.with_shell("rofi -show drun") end,
               {description = "run prompt", group = "launcher"}),
 
+    awful.key({ modkey, ctrlkey }, "r",     function () awful.spawn.with_shell("redshift_rofi") end,
+              {description = "run redshift GUI", group = "launcher"}),
+
     awful.key({ modkey }, "x",
               function ()
                   awful.prompt.run {
@@ -96,6 +100,8 @@ keys.globalkeys = gears.table.join(
             awful.screen.focus_relative(1)
         end ,
         {description = "focus the next screen", group = "screen"}),
+    awful.key({ modkey, shiftkey }, "Tab", screen_swapper.swap,
+        {description = "swap clients on 2 screens", group = "screen"}),
     awful.key({ modkey, shiftkey }, "l",
         function ()
             awful.spawn("/home/user/.scripts/lockscreen")

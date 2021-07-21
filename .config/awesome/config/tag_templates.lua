@@ -17,8 +17,8 @@ local tag_templates = {}
 
 tag_templates.cp = {
     apps = {
-        terminal_in_directory .. "NotSchool/CPP/Competitive",
-        terminal_in_directory .. "NotSchool/CPP/Competitive"
+        terminal_in_directory .. "CP",
+        terminal_in_directory .. "CP"
     }
 }
 
