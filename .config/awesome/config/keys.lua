@@ -4,12 +4,16 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 
 local tag_template = require("modules.tag_template")
 local screen_swapper = require("modules.screen_swapper")
+local screenshot_taker = require("modules.screenshot_taker")
+local dashboard = require("interface.dashboard.dashboard")
+
+local volume_control = require("modules.volume_control")
 
 
 local keys = {}
 
 keys.globalkeys = gears.table.join(
-    awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
+    awful.key({ modkey,           }, "F1",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
               {description = "view previous", group = "tag"}),
@@ -49,10 +53,10 @@ keys.globalkeys = gears.table.join(
     -- Standard program
     awful.key({ modkey, shiftkey   }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
-    awful.key({ modkey, shiftkey }, "r", awesome.restart,
+    awful.key({ modkey, ctrlkey }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
-    awful.key({ modkey, shiftkey   }, "q", awesome.quit,
-              {description = "quit awesome", group = "awesome"}),
+    awful.key({ modkey, shiftkey   }, "q", function () awful.spawn.with_shell("shutdown_options") end,
+              {description = "show shutdown options", group = "launcher"}),
 
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)          end,
               {description = "increase master width factor", group = "layout"}),
@@ -82,8 +86,32 @@ keys.globalkeys = gears.table.join(
     awful.key({ modkey },            "r",     function () awful.spawn.with_shell("rofi -show drun") end,
               {description = "run prompt", group = "launcher"}),
 
-    awful.key({ modkey, ctrlkey }, "r",     function () awful.spawn.with_shell("redshift_rofi") end,
+    awful.key({ modkey, shiftkey }, "r",     function () awful.spawn.with_shell("redshift_rofi") end,
               {description = "run redshift GUI", group = "launcher"}),
+
+    awful.key({ }, "Print",     screenshot_taker.quick_shot,
+              {description = "quick screenshot", group = "launcher"}),
+
+    awful.key({ modkey }, "Print",     screenshot_taker.area_shot,
+              {description = "area screenshot", group = "launcher"}),
+
+    awful.key({ shiftkey }, "XF86AudioRaiseVolume", function() volume_control.change_volume("+10%") end,
+              {description = "raise volume by 10%", group = "user"}),
+
+    awful.key({ shiftkey }, "XF86AudioLowerVolume", function() volume_control.change_volume("-10%") end,
+              {description = "lower volume by 10%", group = "user"}),
+
+    awful.key({ }, "XF86AudioRaiseVolume", function() volume_control.change_volume("+2%") end,
+              {description = "raise volume by 2%", group = "user"}),
+
+    awful.key({ }, "XF86AudioLowerVolume", function() volume_control.change_volume("-2%") end,
+              {description = "lower volume by 2%", group = "user"}),
+
+    awful.key({ }, "XF86AudioMute", function() volume_control.toggle_mute() end,
+              {description = "toggle mute", group = "user"}),
+
+    awful.key({ modkey }, "v", function() volume_control.toggle_widget() end,
+              {description = "toggle volume widget", group = "user"}),
 
     awful.key({ modkey }, "x",
               function ()
@@ -102,14 +130,12 @@ keys.globalkeys = gears.table.join(
         {description = "focus the next screen", group = "screen"}),
     awful.key({ modkey, shiftkey }, "Tab", screen_swapper.swap,
         {description = "swap clients on 2 screens", group = "screen"}),
-    awful.key({ modkey, shiftkey }, "l",
-        function ()
-            awful.spawn("/home/user/.scripts/lockscreen")
-        end ,
-        {description = "lock screen", group = "user"}),
 
-    awful.key({ modkey }, "t", tag_template.run,
-        {description = "tag template", group = "user"})
+    awful.key({ modkey, shiftkey }, "t", tag_template.run,
+        {description = "tag template", group = "user"}),
+
+    awful.key({ modkey }, "d", dashboard.toggle,
+        {description = "toggle dashboard", group = "used"})
 )
 
 keys.clientkeys = gears.table.join(

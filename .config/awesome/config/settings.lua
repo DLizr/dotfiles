@@ -1,3 +1,5 @@
+local naughty = require("naughty")
+
 terminal = "alacritty"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
@@ -10,3 +12,4 @@ altkey = "Mod1"
 ctrlkey = "Control"
 shiftkey = "Shift"
 
+naughty.config.defaults.timeout = -1

@@ -3,7 +3,7 @@ set nocompatible
 set showmatch
 set incsearch
 set hlsearch
-set path+=**
+set path=**
 set lazyredraw
 set showcmd
 
@@ -32,6 +32,8 @@ colorscheme onedark
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
 noremap <F5> :!Compile %<CR>
-" nnoremap <silent> <ESC> :noh<CR><ESC>
+
+nnoremap <silent> <C-c> :noh<CR><ESC>
 
 command CP :r ~/.vim/snippets/competitive.cpp
+

@@ -36,7 +36,8 @@ theme.xcolor15 = xrdb.color15 or "#3e4452" -- White
 
 theme.font_name = "Prompt "
 theme.font     = "Prompt 12"
-theme.icon_font_name = "Shure Tech Mono Nerd Font "
+theme.font2_name = "Iosevka "
+theme.icon_font_name = "Fira Mono Nerd Font "
 -- theme.wallpaper = "/home/user/Pictures/Background.png"
 
 theme.bg_normal     = theme.xbackground
@@ -57,7 +58,10 @@ theme.border_focus  = theme.xforeground
 theme.border_marked = theme.xcolor3
 
 theme.taglist_bg_empty = theme.xcolor15
+theme.taglist_fg_empty = theme.fg_normal
 theme.taglist_bg_occupied = theme.xcolor15
+theme.taglist_bg_focus = theme.bg_focus
+theme.taglist_fg_focus = theme.fg_focus
 theme.taglist_fg_occupied = theme.xcolor4
 theme.taglist_font = theme.font_name .. " Bold 12" 
 
@@ -75,7 +79,7 @@ theme.taglist_font = theme.font_name .. " Bold 12"
 --theme.taglist_bg_focus = "#ff0000"
 
 -- Generate taglist squares:
-local taglist_square_size = dpi(4)
+local taglist_square_size = 0
 theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
     taglist_square_size, theme.fg_normal
 )
@@ -83,11 +87,10 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
     taglist_square_size, theme.fg_normal
 )
 
--- Variables set for theming notifications:
--- notification_font
--- notification_[bg|fg]
--- notification_[width|height|margin]
--- notification_[border_color|border_width|shape|opacity]
+theme.notification_border_width = dpi(10)
+theme.notification_border_color = xcolor1
+theme.notification_margin = dpi(50)
+theme.notification_width = dpi(400)
 
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]
@@ -107,6 +110,11 @@ theme.systray_icon_spacing = dpi(2)
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
 theme.icon_theme = nil
+
+theme.dashboard_bg = theme.bg_normal
+theme.dashboard_border_color = theme.xcolor11
+theme.dashboard_time_color = theme.xcolor4
+theme.dashboard_time_font = "Iosevka "
 
 return theme
 

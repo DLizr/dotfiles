@@ -1,3 +1,4 @@
+@theme "theme"
 * {
     background-color: #282C34;
     border-color: #abb2bf;
@@ -40,4 +41,9 @@ element {
 
 element selected {
     background-color: #5c6370;
+}
+
+element-text, element-icon {
+    background-color: inherit;
+    text-color:       inherit;
 }
