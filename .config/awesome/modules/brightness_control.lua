@@ -17,7 +17,7 @@ widget:setup {
     {
         {
             id = "icon",
-            text = "墳",
+            text = "",
             font = beautiful.icon_font_name .. beautiful.dpi(65),
             widget = wibox.widget.textbox,
             align = "center",
@@ -25,7 +25,7 @@ widget:setup {
         },
         layout = wibox.container.margin,
         top = -beautiful.dpi(15),
-        left = -beautiful.dpi(12),
+        left = -beautiful.dpi(28),
         bottom = -beautiful.dpi(18),
     },
     {
@@ -39,16 +39,14 @@ widget:setup {
     layout = wibox.layout.fixed.vertical
 }
 
-local volume_control = {}
+local brightness_control = {}
 
-function volume_control.change_volume(delta)
-    awful.spawn.with_shell("pactl set-sink-volume 0 " .. delta)
-    volume_control.update()
-end
-
-function volume_control.toggle_mute()
-    awful.spawn.with_shell("pactl set-sink-mute 0 toggle")
-    volume_control.update()
+function brightness_control.change_brightness(delta)
+    awful.spawn.easy_async_with_shell("brightnessctl -d intel_backlight s " .. delta, 
+        function()
+            brightness_control.update()
+        end
+    )
 end
 
 local last_update = os.time()
@@ -62,23 +60,19 @@ local disappear_timer = gears.timer {
     end
 }
 
-function volume_control.update(silent)
+function brightness_control.update(silent)
     silent = silent or false
     awful.spawn.easy_async_with_shell(
-        "pactl get-sink-mute 0 | awk '{print $2}'",
+        "brightnessctl -d intel_backlight get",
         function(stdout)
-            if (stdout:find("no") ~= nil) then
-                widget:get_children_by_id("icon")[1].text = "墳"
-            else
-                widget:get_children_by_id("icon")[1].text = "婢"
-            end
-        end
-    )
-
-    awful.spawn.easy_async_with_shell(
-        "pactl get-sink-volume 0 | awk '{print $5}'",
-        function(stdout)
-            widget:get_children_by_id("percentage")[1].text = stdout
+            local current = tonumber(stdout)
+            awful.spawn.easy_async_with_shell(
+                "brightnessctl -d intel_backlight max",
+                function(stdout)
+                    local max = tonumber(stdout)
+                    widget:get_children_by_id("percentage")[1].text = tostring(current * 100 // max) .. "%"
+                end
+            )
         end
     )
 
@@ -90,6 +84,6 @@ function volume_control.update(silent)
     end
 end
 
-volume_control.update(true)
+brightness_control.update(true)
 
-return volume_control
+return brightness_control

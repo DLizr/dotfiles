@@ -1,6 +1,7 @@
 local awful = require("awful")
 local gears = require("gears")
 local wibox = require("wibox")
+local naughty = require("naughty")
 local beautiful = require("beautiful")
 
 local utils = require("utils")
@@ -29,6 +30,37 @@ local clock_widget = wibox.widget {
     },
     widget = wibox.container.margin
 }
+
+-- Battery Widget.
+
+local battery = wibox.widget {
+    align = "center",
+    valign = "center",
+    widget = wibox.widget.textbox,
+    font = beautiful.font_name .. "10",
+}
+
+gears.timer {
+    timeout = 60,
+    call_now = true,
+    autostart = true,
+    callback = function()
+        awful.spawn.easy_async("cat /sys/class/power_supply/BAT0/capacity", function(stdout)
+            number = string.gsub(stdout, "\n", "")
+            battery.markup = utils.set_color("  " .. number .. "% ", beautiful.xcolor7)
+        end)
+    end
+}
+
+local battery_widget = wibox.widget {
+    {
+        battery,
+        bg = beautiful.xcolor8,
+        widget = wibox.container.background,
+    },
+    widget = wibox.container.margin,
+}
+
 
 local systray = wibox.widget.systray()
 systray:set_base_size(beautiful.systray_icon_size)
@@ -81,6 +113,7 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.horizontal,
             awful.widget.only_on_screen(systray_widget, screen[1]),
             clock_widget,
+            battery_widget,
         },
     }
 end)

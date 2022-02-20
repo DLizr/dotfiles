@@ -8,6 +8,7 @@ local screenshot_taker = require("modules.screenshot_taker")
 local dashboard = require("interface.dashboard.dashboard")
 
 local volume_control = require("modules.volume_control")
+local brightness_control = require("modules.brightness_control")
 
 
 local keys = {}
@@ -110,8 +111,17 @@ keys.globalkeys = gears.table.join(
     awful.key({ }, "XF86AudioMute", function() volume_control.toggle_mute() end,
               {description = "toggle mute", group = "user"}),
 
-    awful.key({ modkey }, "v", function() volume_control.toggle_widget() end,
-              {description = "toggle volume widget", group = "user"}),
+    awful.key({ shiftkey }, "XF86MonBrightnessUp", function() brightness_control.change_brightness("10%+") end,
+              {description = "increase brightness by 10%", group = "user"}),
+
+    awful.key({ shiftkey }, "XF86MonBrightnessDown", function() brightness_control.change_brightness("10%-") end,
+              {description = "decrease brightness by 10%", group = "user"}),
+
+    awful.key({ }, "XF86MonBrightnessUp", function() brightness_control.change_brightness("2%+") end,
+              {description = "increase brightness by 2%", group = "user"}),
+
+    awful.key({ }, "XF86MonBrightnessDown", function() brightness_control.change_brightness("2%-") end,
+              {description = "decrease brightness by 2%", group = "user"}),
 
     awful.key({ modkey }, "x",
               function ()

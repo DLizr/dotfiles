@@ -34,8 +34,8 @@ theme.xcolor13 = xrdb.color13 or "#c678dd" -- Magenta
 theme.xcolor14 = xrdb.color14 or "#56b6c2" -- Cyan
 theme.xcolor15 = xrdb.color15 or "#3e4452" -- White
 
-theme.font_name = "Prompt "
-theme.font     = "Prompt 12"
+theme.font_name = "Iosevka Nerd Font "
+theme.font     = "Iosevka Nerd Font 12"
 theme.font2_name = "Iosevka "
 theme.icon_font_name = "Fira Mono Nerd Font "
 -- theme.wallpaper = "/home/user/Pictures/Background.png"
