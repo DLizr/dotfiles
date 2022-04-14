@@ -49,6 +49,28 @@ awful.rules.rules = {
         }
       }, properties = { floating = true }},
 
+    {
+        rule_any = {
+            name = {
+                "ScratchDictionary",
+                "FloatingDictionary"
+            } 
+        },
+        properties = {
+            floating = true,
+            width = 400,
+            height = 400,
+            placement = awful.placement.centered,
+            ontop = true,
+        }
+    },
+    {
+        rule = { name = "ScratchDictionary" },
+        properties = {
+            tag = awful.tag.find_by_name(screen.primary, "-Dictionary")
+        }
+    }
+
     -- Add titlebars to normal clients and dialogs
 
     -- Set Firefox to always map on the tag named "2" on screen 1.

@@ -5,6 +5,7 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 local tag_template = require("modules.tag_template")
 local screen_swapper = require("modules.screen_swapper")
 local screenshot_taker = require("modules.screenshot_taker")
+local dictionary = require("modules.dictionary")
 local dashboard = require("interface.dashboard.dashboard")
 
 local volume_control = require("modules.volume_control")
@@ -144,8 +145,11 @@ keys.globalkeys = gears.table.join(
     awful.key({ modkey, shiftkey }, "t", tag_template.run,
         {description = "tag template", group = "user"}),
 
-    awful.key({ modkey }, "d", dashboard.toggle,
-        {description = "toggle dashboard", group = "used"})
+    awful.key({ modkey }, "d", function() dictionary.toggle() end,
+        {description = "toggle dictionary scratchpad", group = "user"}),
+
+    awful.key({ modkey, shiftkey }, "d", function() dictionary.search() end,
+        {description = "search in dictionary", group = "user"})
 )
 
 keys.clientkeys = gears.table.join(

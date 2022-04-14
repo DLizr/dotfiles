@@ -3,6 +3,10 @@ local awful = require("awful")
 local beautiful = require("beautiful")
 local wibox = require("wibox")
 
+local taglist_filter = function(tag)
+    return string.sub(tag.name, 1, 1) ~= "-"
+end
+
 local get_taglist = function(s)
     local taglist_buttons = gears.table.join(
                         awful.button({ }, 1, function(t) t:view_only() end),
@@ -25,7 +29,7 @@ local get_taglist = function(s)
 
     local mytaglist = awful.widget.taglist {
         screen  = s,
-        filter  = awful.widget.taglist.filter.all,
+        filter  = taglist_filter, --awful.widget.taglist.filter.all,
         buttons = taglist_buttons,
         widget_template = {
             {
@@ -37,7 +41,7 @@ local get_taglist = function(s)
                             widget = wibox.widget.textbox
                         },
                         -- Blank space around tag names.
-                        top = beautiful.dpi(2),
+                        top = beautiful.dpi(1),
                         bottom = beautiful.dpi(1),
                         left = beautiful.dpi(10),
                         right = beautiful.dpi(10),

@@ -47,6 +47,11 @@ gears.timer {
     callback = function()
         awful.spawn.easy_async("cat /sys/class/power_supply/BAT0/capacity", function(stdout)
             number = string.gsub(stdout, "\n", "")
+            if (number == "") then
+                battery.visible = false
+            else
+                battery.visible = true
+            end
             battery.markup = utils.set_color("  " .. number .. "% ", beautiful.xcolor7)
         end)
     end

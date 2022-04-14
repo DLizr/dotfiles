@@ -66,13 +66,15 @@ function brightness_control.update(silent)
         "brightnessctl -d intel_backlight get",
         function(stdout)
             local current = tonumber(stdout)
-            awful.spawn.easy_async_with_shell(
-                "brightnessctl -d intel_backlight max",
-                function(stdout)
-                    local max = tonumber(stdout)
-                    widget:get_children_by_id("percentage")[1].text = tostring(current * 100 // max) .. "%"
-                end
-            )
+            if (current ~= nil) then
+                awful.spawn.easy_async_with_shell(
+                    "brightnessctl -d intel_backlight max",
+                    function(stdout)
+                        local max = tonumber(stdout)
+                        widget:get_children_by_id("percentage")[1].text = tostring(current * 100 // max) .. "%"
+                    end
+                )
+            end
         end
     )
 
