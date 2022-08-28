@@ -145,8 +145,8 @@ keys.globalkeys = gears.table.join(
     awful.key({ modkey, shiftkey }, "t", tag_template.run,
         {description = "tag template", group = "user"}),
 
-    awful.key({ modkey }, "d", function() dictionary.toggle() end,
-        {description = "toggle dictionary scratchpad", group = "user"}),
+    awful.key({ modkey }, "d", function() dashboard.toggle() end,
+        {description = "toggle dashboard", group = "user"}),
 
     awful.key({ modkey, shiftkey }, "d", function() dictionary.search() end,
         {description = "search in dictionary", group = "user"})

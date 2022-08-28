@@ -1,43 +1,62 @@
+local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 local utils = require("utils")
 
-
--- Time widget.
-
-local time = wibox.widget.textclock("%H %M")
-time.align = "center"
-time.valign = "center"
-time.font = beautiful.dashboard_time_font .. "40"
-time.markup = utils.set_color(time.text, beautiful.dashboard_time_color)
-
-time:connect_signal("widget::redraw_needed", function()
-    time.markup = utils.set_color(time.text, beautiful.dashboard_time_color)
-end)
+local status = require("interface.dashboard.system_status")
+local base_widgets = require("interface.base_widgets")
 
 
--- Putting it all together.
-
-local dash = wibox({visible = false, ontop = true, type = "dock", screen = screen.primary})
-dash.bg = beautiful.dashboard_bg
-dash.border_width = 2
-dash.border_color = beautiful.dashboard_border_color
-dash.height = 300
-dash.width = screen.primary.geometry.width - dash.border_width * 2
-dash.y = -dash.border_width
-dash.x = 0
-
-dash:setup {
-    {
-        time,
-        layout = wibox.layout.align.horizontal
-    },
-    layout = wibox.layout.align.vertical
+local visible = false
+local dashboard = {}
+local todo = base_widgets.command_output {
+    x = beautiful.dpi(350),
+    y = beautiful.dpi(50),
+    width = beautiful.dpi(900),
+    height = beautiful.dpi(600),
+    command = "task dash",
+    update_interval = 60,
 }
 
-local dashboard = {}
+local weather = base_widgets.command_output {
+    x = beautiful.dpi(1300),
+    y = beautiful.dpi(50),
+    width = beautiful.dpi(450),
+    height = beautiful.dpi(180),
+    command = "curl 'wttr.in?QT0'", 
+    update_interval = 300,
+}
+
+local widgets = {todo, status, weather}
+
+local grabber = awful.keygrabber {
+    keybindings = {
+        {{          }, "h", 
+            function()
+                utils.spawn_terminal({command = "htop"})
+                dashboard.toggle()
+            end },
+        {{          }, "w", 
+            function()
+                utils.spawn_terminal({command = "/home/user/.scripts/weather_report"})
+                dashboard.toggle()
+            end },
+        {{ modkey   }, "d", function() dashboard.toggle() end }
+    },
+    stop_key = "Escape"
+}
+
+
 function dashboard.toggle()
-    dash.visible = not dash.visible
+    visible = not visible
+    for ind, widget in pairs(widgets) do
+        widget:toggle()
+    end
+    if (visible) then
+        grabber:start()
+    else
+        grabber:stop()
+    end
 end
 
 return dashboard

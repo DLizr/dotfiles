@@ -2,6 +2,7 @@ local awful = require("awful")
 
 local beautiful = require("beautiful")
 local keys = require("config.keys")
+local terminal_names = require("config.terminal_names")
 
 
 awful.rules.rules = {
@@ -69,7 +70,7 @@ awful.rules.rules = {
         properties = {
             tag = awful.tag.find_by_name(screen.primary, "-Dictionary")
         }
-    }
+    },
 
     -- Add titlebars to normal clients and dialogs
 
