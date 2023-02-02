@@ -1,0 +1,16 @@
+#! /bin/bash
+
+query() {
+    res=$(echo "$1" | rofi -dmenu -p "Homework" -lines $2 -i)
+    echo $res
+}
+
+option=$(query $'Algem\nCalculus' 2)
+
+if [[ $option == "Algem" ]]; then
+    zathura ~/Documents/textbooks/Algem2022.pdf &
+    zathura ~/Documents/textbooks/Algem-Tasks.djvu &
+elif [[ $option == "Calculus" ]]; then
+    zathura ~/Documents/textbooks/Calculus2022.pdf &
+    zathura ~/Documents/textbooks/Calculus-Tasks.djvu &
+fi

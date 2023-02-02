@@ -1,1 +1,7 @@
-python3 ~/.scripts/omi.py $1
+#! /bin/bash
+
+for (( i = 1; i <= $1; i++ ))
+do
+    echo "-- Test #${i}:"
+    ./out < "input${i}"
+done

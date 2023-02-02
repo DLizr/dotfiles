@@ -1,1 +1,29 @@
-python3 ~/.scripts/shutdown_options.py
+#! /bin/bash
+
+query() {
+    res=$(echo -e "$1" | rofi -dmenu -p "Homework" -lines $2 -i)
+    echo $res
+}
+
+res=$(query "Off Screen\\nLock Screen\\nShutdown\\nReboot\\nKill Xorg")
+
+case ${res} in
+    "Off Screen")
+        screen_off
+        ;;
+    "Lock Screen")
+        echo "Maybe it's time to implement it?"
+        ;;
+    "Shutdown")
+        shutdown now
+        ;;
+    "Reboot")
+        reboot
+        ;;
+    "Kill Xorg")
+        killall Xorg
+        ;;
+    *)
+        query "Invalid Argument: ${res}"
+        ;;
+esac

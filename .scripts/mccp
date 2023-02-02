@@ -1,0 +1,3 @@
+#! /bin/bash
+
+cp -r $1/.minecraft/{options.txt,optionsof.txt,usercache.json,servers.dat,saves,journeymap,screenshots} $2/.minecraft
