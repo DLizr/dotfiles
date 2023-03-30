@@ -84,7 +84,7 @@ local mem_root_timer = gears.timer {
     callback = mem_root_update
 }
 
-local mem_home = setup_monitor {icon = "/ ~", icon_size = 32}
+local mem_home = setup_monitor {icon = "/ ~", icon_size = 32}
 local mem_home_update = function()
     awful.spawn.easy_async_with_shell(
         "df -h | grep '/home' | awk '{print $4}'",

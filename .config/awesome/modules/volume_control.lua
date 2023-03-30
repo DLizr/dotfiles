@@ -17,7 +17,7 @@ widget:setup {
     {
         {
             id = "icon",
-            text = "墳",
+            text = "󰕾",
             font = beautiful.icon_font_name .. beautiful.dpi(65),
             widget = wibox.widget.textbox,
             align = "center",
@@ -68,9 +68,9 @@ function volume_control.update(silent)
         "pactl get-sink-mute 0 | awk '{print $2}'",
         function(stdout)
             if (stdout:find("no") ~= nil) then
-                widget:get_children_by_id("icon")[1].text = "墳"
+                widget:get_children_by_id("icon")[1].text = "󰕾"
             else
-                widget:get_children_by_id("icon")[1].text = "婢"
+                widget:get_children_by_id("icon")[1].text = "󰝟"
             end
         end
     )

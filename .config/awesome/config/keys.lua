@@ -64,10 +64,6 @@ keys.globalkeys = gears.table.join(
               {description = "increase master width factor", group = "layout"}),
     awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)          end,
               {description = "decrease master width factor", group = "layout"}),
-    awful.key({ modkey, shiftkey   }, "h",     function () awful.tag.incnmaster( 1, nil, true) end,
-              {description = "increase the number of master clients", group = "layout"}),
-    awful.key({ modkey }, "i",     function () awful.tag.incnmaster(-1, nil, true) end,
-              {description = "decrease the number of master clients", group = "layout"}),
     awful.key({ modkey, shiftkey }, "i",     function () awful.tag.incncol( 1, nil, true)    end,
               {description = "increase the number of columns", group = "layout"}),
     awful.key({ modkey, ctrlkey }, "l",     function () awful.tag.incncol(-1, nil, true)    end,
@@ -96,6 +92,9 @@ keys.globalkeys = gears.table.join(
 
     awful.key({ modkey }, "Print",     screenshot_taker.area_shot,
               {description = "area screenshot", group = "launcher"}),
+
+    awful.key({ modkey, shiftkey }, "h",     function() awful.spawn.with_shell(".scripts/homework") end,
+              {description = "homework launcher", group = "launcher"}),
 
     awful.key({ shiftkey }, "XF86AudioRaiseVolume", function() volume_control.change_volume("+10%") end,
               {description = "raise volume by 10%", group = "user"}),

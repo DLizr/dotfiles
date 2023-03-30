@@ -24,4 +24,6 @@ alias o="./out"
 alias oi="./out < input"
 alias off="sleep 1 && xset dpms force off"
 
+alias gitd="git --git-dir=$HOME/dotfiles/dotfiles/.git --work-tree=$HOME"
+
 export PATH=$PATH:~/.cargo/bin:~/.scripts

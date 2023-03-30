@@ -10,7 +10,7 @@ font:
     #   - (macOS) Menlo
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
-    family: Fira Mono Nerd Font
+    family: Fira Mono 
     style: Medium
 
 # One Dark

@@ -68,7 +68,7 @@ function dictionary.search()
             return
         end
     end
-    awful.spawn("alacritty -t " .. NAME2 .. " -e sh /home/user/.scripts/search_dictionary.sh")
+    awful.spawn("alacritty -t " .. NAME2 .. " -e /home/user/.scripts/search_dictionary")
 
 end
 

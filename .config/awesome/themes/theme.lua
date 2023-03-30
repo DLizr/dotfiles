@@ -37,7 +37,7 @@ theme.xcolor15 = xrdb.color15 or "#3e4452" -- White
 theme.font_name = "Iosevka Nerd Font "
 theme.font     = "Iosevka Nerd Font 12"
 theme.font2_name = "Iosevka "
-theme.icon_font_name = "Fira Mono Nerd Font "
+theme.icon_font_name = "Fira Mono "
 -- theme.wallpaper = "/home/user/Pictures/Background.png"
 
 theme.bg_normal     = theme.xbackground

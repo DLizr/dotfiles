@@ -18,6 +18,12 @@ set relativenumber
 filetype plugin indent on
 set autoindent
 
+set cino=j1
+
+call plug#begin()
+Plug 'SirVer/ultisnips'
+call plug#end()
+
 " set Vim-specific sequences for RGB colors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -27,13 +33,30 @@ if (empty($TMUX))
         set termguicolors
     endif
 endif
-colorscheme onedark
+if (!has("nvim"))
+    colorscheme onedark
+endif
 
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
-noremap <F5> :!Compile %<CR>
 
 nnoremap <silent> <C-c> :noh<CR><ESC>
 
 command CP :r ~/.vim/snippets/competitive.cpp
+set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
+let g:markdown_fenced_languages = ['vim', 'python', 'cpp', 'c', 'bash']
+let g:markdown_folding = 1
 
+let extension = expand("%:e")
+if (extension == "cpp" || extension == "h")
+    noremap <F5> :!Compile %<CR>
+    noremap <F6> :!CompileDebug %<CR>
+elseif (extension == "rs")
+    noremap <F5> :!rustc % -o out<CR>
+elseif (extension == "tex")
+    noremap <F5> :!pdflatex %<CR>
+    let g:UltiSnipsExpandTrigger = '<tab>'
+    let g:UltiSnipsJumpForwardTrigger = '<tab>'
+    let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+    let g:UltiSnipsSnippetDirectories=["ulti-snippets"]
+endif
