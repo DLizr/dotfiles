@@ -8,7 +8,7 @@ call plug#end()
 
 lua << EOF
 require'nvim-treesitter.configs'.setup {
-    ensure_installed = { "norg" },
+    ensure_installed = { "norg", "cpp", "python", "lua", "bash", "rust" },
     highlight = {enable = true}
 }
 require('neorg').setup {

@@ -11,6 +11,8 @@ local dashboard = require("interface.dashboard.dashboard")
 local volume_control = require("modules.volume_control")
 local brightness_control = require("modules.brightness_control")
 
+local utils = require("utils")
+
 
 local keys = {}
 
@@ -95,6 +97,9 @@ keys.globalkeys = gears.table.join(
 
     awful.key({ modkey, shiftkey }, "h",     function() awful.spawn.with_shell(".scripts/homework") end,
               {description = "homework launcher", group = "launcher"}),
+
+    awful.key({ modkey, shiftkey }, "n",     function() utils.spawn_terminal({ name = "NotesTerminal", command = ".scripts/open_notes" }) end,
+              {description = "open notes file", group = "launcher"}),
 
     awful.key({ shiftkey }, "XF86AudioRaiseVolume", function() volume_control.change_volume("+10%") end,
               {description = "raise volume by 10%", group = "user"}),

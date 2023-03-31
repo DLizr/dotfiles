@@ -14,7 +14,7 @@ local todo = base_widgets.command_output {
     y = beautiful.dpi(50),
     width = beautiful.dpi(900),
     height = beautiful.dpi(600),
-    command = "task dash",
+    command = "print_todo",
     update_interval = 60,
 }
 

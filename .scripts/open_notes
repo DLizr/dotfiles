@@ -1,0 +1,3 @@
+#!/bin/bash
+
+nvim "$HOME/Data/notes.norg"
