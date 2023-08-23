@@ -8,14 +8,14 @@ call plug#end()
 
 lua << EOF
 require'nvim-treesitter.configs'.setup {
-    ensure_installed = { "norg", "cpp", "python", "lua", "bash", "rust" },
+    ensure_installed = { "norg", "cpp", "python", "lua", "bash", "rust", "latex" },
     highlight = {enable = true}
 }
 require('neorg').setup {
     load = {
         ["core.defaults"] = {}, -- Loads default behaviour
-        ["core.norg.concealer"] = {}, -- Adds pretty icons to your documents
-        ["core.norg.dirman"] = { -- Manages Neorg workspaces
+        ["core.concealer"] = {}, -- Adds pretty icons to your documents
+        ["core.dirman"] = { -- Manages Neorg workspaces
             config = {
                 workspaces = {
                     notes = "~/notes",

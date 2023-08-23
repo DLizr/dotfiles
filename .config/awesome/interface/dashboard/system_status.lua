@@ -99,9 +99,23 @@ local mem_home_timer = gears.timer {
     callback = mem_home_update
 }
 
+local vpn_status = setup_monitor {icon = "VPN", icon_size = 32}
+local vpn_status_update = function()
+    awful.spawn.easy_async_with_shell(
+        "vpn_status",
+        function(stdout)
+            vpn_status:get_children_by_id("value")[1].markup = utils.set_color(stdout, beautiful.xcolor2)
+        end
+    )
+end
+local vpn_status_timer = gears.timer {
+    timeout = 60,
+    callback = vpn_status_update
+}
+
 local status_widget = wibox({visible = true, ontop = true, screen = screen.primary, type = "normal"})
 status_widget.width = beautiful.dpi(250)
-status_widget.height = beautiful.dpi(292)
+status_widget.height = beautiful.dpi(320)
 status_widget.border_width = 2
 status_widget.border_color = beautiful.border_focus
 status_widget.x = beautiful.dpi(20)
@@ -129,12 +143,17 @@ status_widget:setup {
         bg = beautiful.xcolor15,
         widget = wibox.container.background
     },
+    {
+        vpn_status,
+        bg = beautiful.xbackground,
+        widget = wibox.container.background
+    },
     layout = wibox.layout.fixed.vertical,
     expand = "none",
 }
 
-local update_functions = {cpu_update, ram_update, mem_root_update, mem_home_update}
-local timers = {cpu_timer, ram_timer, mem_root_timer, mem_home_timer}
+local update_functions = {cpu_update, ram_update, mem_root_update, mem_home_update, vpn_status_update}
+local timers = {cpu_timer, ram_timer, mem_root_timer, mem_home_timer, vpn_status_timer}
 
 
 function system_status.toggle()

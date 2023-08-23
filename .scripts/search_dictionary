@@ -1,10 +1,12 @@
 #! /bin/bash
 
 word=$(xclip -o)
-trans $word
+trans "$word"
 read result
 if [[ $result == "a" ]]; then
-    translation=$(trans -b $word)
-    echo "$word; $translation" >> ~/chinese/auto-words
-    vim ~/chinese/auto-words
+    output=$(trans -s ZH -t ENG -d "$word")
+    pinyin=$(echo "$output" | head -n 2 | tail -n 1 | sed -e "s/[()]//g")
+    translation=$(echo -e "$output" | head -n 4 | tail -n 1 | tr -d "[1m[22m")
+    echo "$word; $translation; $pinyin" >> ~/chinese/auto-words.txt
+    vim ~/chinese/auto-words.txt
 fi

@@ -42,7 +42,6 @@ inoremap {;<CR> {<CR>};<ESC>O
 
 nnoremap <silent> <C-c> :noh<CR><ESC>
 
-command CP :r ~/.vim/snippets/competitive.cpp
 set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
 let g:markdown_fenced_languages = ['vim', 'python', 'cpp', 'c', 'bash']
 let g:markdown_folding = 1
@@ -51,8 +50,10 @@ let extension = expand("%:e")
 if (extension == "cpp" || extension == "h")
     noremap <F5> :!Compile %<CR>
     noremap <F6> :!CompileDebug %<CR>
+    command CP :r ~/.vim/snippets/competitive.cpp
 elseif (extension == "rs")
     noremap <F5> :!rustc % -o out<CR>
+    command CP :r ~/.vim/snippets/competitive.rs
 elseif (extension == "tex")
     noremap <F5> :!pdflatex %<CR>
     let g:UltiSnipsExpandTrigger = '<tab>'

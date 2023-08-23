@@ -14,7 +14,7 @@ compinit
 
 PROMPT='
 %F{green}[ %F{blue}%~ %F{green}]
-%F{green}﬌ %F{white}'
+%F{green}󰘍 %F{white}'
 
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
