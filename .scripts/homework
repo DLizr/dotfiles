@@ -1,11 +1,8 @@
 #! /bin/bash
 
-query() {
-    res=$(echo "$1" | rofi -dmenu -p "Homework" -lines $2 -i)
-    echo $res
-}
+. ~/.scripts/rofi_lib
 
-option=$(query $'Algem\nCalculus' 2)
+option=$(rofiQuery Homework $'Algem\nCalculus')
 
 if [[ $option == "Algem" ]]; then
     zathura ~/Documents/textbooks/Algem2022.pdf &

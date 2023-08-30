@@ -41,6 +41,16 @@ local grabber = awful.keygrabber {
                 utils.spawn_terminal({command = "/home/user/.scripts/weather_report"})
                 dashboard.toggle()
             end },
+        {{          }, "v",
+            function()
+                awful.spawn.with_shell("vpn_toggle_rofi")
+                dashboard.toggle()
+            end },
+        {{          }, "s",
+            function()
+                awful.spawn.with_shell("search_rofi")
+                dashboard.toggle()
+            end },
         {{ modkey   }, "d", function() dashboard.toggle() end }
     },
     stop_key = "Escape"

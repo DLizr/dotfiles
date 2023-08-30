@@ -1,0 +1,15 @@
+#!/bin/sh
+
+state_file="/home/user/.scripts/.state"
+
+if [[ $1 == "up" ]]; then
+    wg-quick up wg0
+    sed -i "/vpn-on/s/0/1/" $state_file
+elif [[ $1 == "down" ]]; then
+    wg-quick down wg0
+    sed -i "/vpn-on/s/1/0/" $state_file
+elif [[ $1 == "get" ]]; then
+    echo $(grep "vpn-on" $state_file | awk '{print $2'})
+else
+    echo "Invalid Argument"
+fi

@@ -1,22 +1,23 @@
 #! /bin/bash
 
-query() {
-    res=$(echo -e "$1" | rofi -dmenu -p "Redshift" -lines $2 -i)
-    echo $res
-}
+. ~/.scripts/rofi_lib
 
-res=$(query "Day (5000)\\nNight (3250)\\nReset\\nOr type in the number.")
-redshift -x
+res=$(rofiQuery Redshift "Day (5000)\\nNight (3250)\\nReset\\nOr type in the number.")
 case ${res} in
     "Day (5000)")
+        redshift -x
         redshift -O 5000
         ;;
     "Night (3250)")
+        redshift -x
         redshift -O 3250
         ;;
     "Reset")
         ;;
+    "")
+        ;;
     *)
+        redshift -x
         redshift -O ${res}
         ;;
 esac

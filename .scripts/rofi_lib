@@ -1,0 +1,6 @@
+#!/bin/bash
+
+rofiQuery() {
+    res=$(printf "$2" | rofi -dmenu -p $1 -i)
+    echo $res
+}

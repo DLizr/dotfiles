@@ -1,11 +1,8 @@
 #! /bin/bash
 
-query() {
-    res=$(echo -e "$1" | rofi -dmenu -p "Shutdown" -lines $2 -i)
-    echo $res
-}
+. ~/.scripts/rofi_lib
 
-res=$(query "Off Screen\\nLock Screen\\nShutdown\\nReboot\\nKill Xorg")
+res=$(rofiQuery Shutdown "Off Screen\\nLock Screen\\nShutdown\\nReboot\\nKill Xorg")
 
 case ${res} in
     "Off Screen")
@@ -24,6 +21,6 @@ case ${res} in
         killall Xorg
         ;;
     *)
-        query "Invalid Argument: ${res}"
+        rofiQuery Shutdown "Invalid Argument: ${res}"
         ;;
 esac

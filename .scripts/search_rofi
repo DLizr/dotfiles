@@ -1,0 +1,37 @@
+#!/bin/bash
+
+. ~/.scripts/rofi_lib
+
+options=("DuckDuckGo" "DuckDuckGo (Nonprivate)" "Cambridge" "MDBG" "Urban Dictionary" "Marginalia")
+
+engine=$(rofiQuery Search "$(printf '%s\n' "${options[@]}")") 
+queryPrompt="Paste from the clipboard."
+query=$(rofiQuery Search "$queryPrompt")
+
+if [[ "$query" == "" ]]; then
+    exit 0
+fi
+if [[ "$query" == "$queryPrompt" ]]; then
+    query=$(xclip -o)
+fi
+
+case "$engine" in
+    "${options[0]}")
+        librewolf --private-window "https://duckduckgo.com/?q=${query// /+}"
+        ;;
+    "${options[1]}")
+        librewolf "https://duckduckgo.com/?q=${query// /+}"
+        ;;
+    "${options[2]}")
+        librewolf --private-window "https://dictionary.cambridge.org/dictionary/english/$query"
+        ;;
+    "${options[3]}")
+        librewolf --private-window "https://www.mdbg.net/chinese/dictionary?wdqb=$query"
+        ;;
+    "${options[4]}")
+        librewolf --private-window "https://www.urbandictionary.com/define.php?term=$query"
+        ;;
+    "${options[5]}")
+        librewolf --private-window "https://search.marginalia.nu/search?query=${query// /+}"
+        ;;
+esac
