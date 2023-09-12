@@ -1,9 +1,8 @@
-source ~/.vim/vimrc
-
 call plug#begin()
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-neorg/neorg' | Plug 'nvim-lua/plenary.nvim'
 Plug 'navarasu/onedark.nvim'
+Plug 'SirVer/ultisnips'
 call plug#end()
 
 lua << EOF
@@ -26,3 +25,7 @@ require('neorg').setup {
 }
 EOF
 colorscheme onedark
+
+source ~/.vim/vimrc
+set runtimepath^=~/.vim runtimepath+=~/.vim/after
+let &packpath=&runtimepath

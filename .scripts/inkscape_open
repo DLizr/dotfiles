@@ -1,0 +1,8 @@
+#! /bin/bash
+
+if [ ! -f "$1.svg" ]; then
+    inkscape --actions="file-new; export-filename:$1.svg; export-do;"
+fi
+
+inkscape $1.svg
+inkscape $1.svg --export-area-drawing --export-type=pdf --export-latex

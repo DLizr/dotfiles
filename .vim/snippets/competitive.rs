@@ -1,4 +1,3 @@
-#[allow(unused_imports)]
 use std::io::{stdin, stdout, BufWriter, Write};
 
 
