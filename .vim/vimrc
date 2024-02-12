@@ -40,6 +40,7 @@ endif
 
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
+noremap <Leader><CR> :!alacritty &<CR><CR>
 
 nnoremap <silent> <C-c> :noh<CR><ESC>
 
@@ -53,7 +54,7 @@ if (extension == "cpp" || extension == "h")
     noremap <F6> :!CompileDebug %<CR>
     command CP :r ~/.vim/snippets/competitive.cpp
 elseif (extension == "rs")
-    noremap <F5> :!rustc % -o out<CR>
+    noremap <F5> :!rustc % -g -o out<CR>
     command CP :r ~/.vim/snippets/competitive.rs
 elseif (extension == "tex")
     noremap <F5> :!pdflatex %<CR>
