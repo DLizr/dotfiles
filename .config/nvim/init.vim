@@ -3,6 +3,9 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-neorg/neorg' | Plug 'nvim-lua/plenary.nvim'
 Plug 'navarasu/onedark.nvim'
 Plug 'SirVer/ultisnips'
+Plug 'subnut/nvim-ghost.nvim'
+Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
+Plug 'nvim-tree/nvim-web-devicons'
 
 " Autocompletion garbage
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
@@ -104,6 +107,11 @@ source ~/.vim/vimrc
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath=&runtimepath
 
+augroup nvim_ghost_user_autocommands
+    au User localhost:8888 setfiletype python
+augroup END
+
+
 function NvimCmpToggle()
     if g:nvim_cmp_enabled
         let g:nvim_cmp_enabled = v:false
@@ -113,6 +121,7 @@ function NvimCmpToggle()
 endfunction
 
 noremap <Leader>ac :call NvimCmpToggle()<CR>
+noremap <Leader>fzf :FzfLua files<CR>
 
 lua << EOF
     vim.g.diagnostic_enabled = true
