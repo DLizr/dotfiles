@@ -1,11 +1,12 @@
 call plug#begin()
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-neorg/neorg' | Plug 'nvim-lua/plenary.nvim'
+Plug 'vimwiki/vimwiki'
 Plug 'navarasu/onedark.nvim'
 Plug 'SirVer/ultisnips'
 Plug 'subnut/nvim-ghost.nvim'
 Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
 Plug 'nvim-tree/nvim-web-devicons'
+Plug 'mrcjkb/rustaceanvim'
 
 " Autocompletion garbage
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
@@ -15,7 +16,6 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
-Plug 'mrcjkb/rustaceanvim'
 call plug#end()
 
 lua << EOF
@@ -23,25 +23,8 @@ lua << EOF
     -- Treesitter
     --
     require'nvim-treesitter.configs'.setup {
-        ensure_installed = { "norg", "cpp", "python", "lua", "bash", "rust", "latex" },
+        ensure_installed = { "cpp", "python", "lua", "bash", "rust", "latex", "sql", "haskell" },
         highlight = {enable = true}
-    }
-
-    --
-    -- Neorg
-    --
-    require('neorg').setup {
-        load = {
-            ["core.defaults"] = {}, -- Loads default behaviour
-            ["core.concealer"] = {}, -- Adds pretty icons to your documents
-            ["core.dirman"] = { -- Manages Neorg workspaces
-                config = {
-                    workspaces = {
-                        notes = "~/notes",
-                    },
-                },
-            },
-        },
     }
 
     -- 
@@ -84,11 +67,6 @@ lua << EOF
     --
     local lspconfig = require("lspconfig")
     lspconfig.clangd.setup {}
-    lspconfig.rust_analyzer.setup {
-        settings = {
-            ['rust-analyzer'] = {}
-        }
-    }
     lspconfig.jedi_language_server.setup {}
     vim.g.nvim_cmp_enabled = false
 
@@ -107,6 +85,7 @@ source ~/.vim/vimrc
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath=&runtimepath
 
+let g:nvim_ghost_autostart = 0  " :GhostTextStart for manual intervention.
 augroup nvim_ghost_user_autocommands
     au User localhost:8888 setfiletype python
 augroup END
@@ -123,6 +102,8 @@ endfunction
 noremap <Leader>ac :call NvimCmpToggle()<CR>
 noremap <Leader>fzf :FzfLua files<CR>
 
+let g:vimwiki_list = [{'path': '~/Data/vimwiki'}]
+
 lua << EOF
     vim.g.diagnostic_enabled = true
     local toggle_diagnostic = function()
@@ -134,5 +115,9 @@ lua << EOF
             vim.diagnostic.enable()
         end
     end
-    vim.keymap.set("n", "<Leader>td", toggle_diagnostic)
+    vim.keymap.set("n", "<Leader>td", toggle_diagnostic,
+        { desc = "Toggle Diagnostics (LSP)" })
+
+    vim.keymap.set("n", "<Leader>lr", vim.lsp.buf.references,
+        { desc = "List References (LSP)" })
 EOF
