@@ -18,7 +18,7 @@ function screenshot_taker.quick_shot()
 end
 
 function screenshot_taker.area_shot()
-    awful.spawn.with_shell("scrot -s -e 'xclip -selection clipboard -t image/png -i $f'")
+    awful.spawn.with_shell("scrot -f -p -s -e 'xclip -selection clipboard -t image/png -i $f && rm $f'")
 end
 
 return screenshot_taker

@@ -1,6 +1,6 @@
 #! /bin/bash
 
-word=$(xclip -o)
+word=$(wl-paste -p)
 trans "$word"
 while true; do
     read -n1 result

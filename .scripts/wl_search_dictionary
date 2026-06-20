@@ -1,0 +1,7 @@
+#! /bin/bash
+already_opened=$(niri msg --json windows | jq '.[] | select (.title == "FloatingDictionary") | .id')
+if [[ -z $already_opened ]]; then
+    foot --title=FloatingDictionary wl_search_dictionary_impl
+else
+    niri msg action close-window --id $already_opened
+fi

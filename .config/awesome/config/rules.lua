@@ -59,8 +59,8 @@ awful.rules.rules = {
         },
         properties = {
             floating = true,
-            width = 400,
-            height = 400,
+            width = 600,
+            height = 600,
             placement = awful.placement.centered,
             ontop = true,
         }

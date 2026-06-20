@@ -26,4 +26,6 @@ alias off="sleep 1 && xset dpms force off"
 
 alias gitd="git --git-dir=$HOME/dotfiles/dotfiles/.git --work-tree=$HOME"
 
-export PATH=$PATH:~/.cargo/bin:~/.scripts
+export PATH=$PATH:~/.cargo/bin:~/.scripts:~/.local/share/gem/ruby/3.0.0/bin:~/MIPT/homework/caos-advanced/DmitryLizr/bin
+
+. "$HOME/.local/bin/env"

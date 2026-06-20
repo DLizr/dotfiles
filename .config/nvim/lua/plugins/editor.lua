@@ -15,25 +15,6 @@ return {
                 end
             })
 
-            -- Diagnostics are distracting, but, just in case, I'll leave it as a option.
-            -- (By default diagnostics are enabled, hence setting true)
-            vim.g.diagnostic_enabled = true
-            local toggle_diagnostic = function()
-                if vim.g.diagnostic_enabled then
-                    vim.g.diagnostic_enabled = false
-                    vim.diagnostic.disable()
-                else
-                    vim.g.diagnostic_enabled = true
-                    vim.diagnostic.enable()
-                end
-            end
-            toggle_diagnostic()
-
-            vim.keymap.set("n", "<Leader>td", toggle_diagnostic,
-                { desc = "Toggle Diagnostics (LSP)" })
-
-            vim.keymap.set("n", "<Leader>lr", vim.lsp.buf.references,
-                { desc = "List References (LSP)" })
         end,
     }
 }

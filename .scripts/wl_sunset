@@ -1,0 +1,24 @@
+#! /bin/bash
+
+. ~/.scripts/fuzzel_lib
+
+res=$(fuzzelQuery Redshift "Day (5000)\\nNight (3250)\\nReset\\nOr type in the number.")
+case ${res} in
+    "Day (5000)")
+        killall wlsunset
+        exec wlsunset -t 5000 -T 5001
+        ;;
+    "Night (3250)")
+        killall wlsunset
+        exec wlsunset -t 3250 -T 3251
+        ;;
+    "Reset")
+        killall wlsunset
+        ;;
+    "")
+        ;;
+    *)
+        killall wlsunset
+        exec wlsunset -t ${res}
+        ;;
+esac

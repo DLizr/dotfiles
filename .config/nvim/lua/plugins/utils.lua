@@ -1,6 +1,14 @@
 return {
     "ibhagwan/fzf-lua",
-    "SirVer/ultisnips",
+    {
+        "SirVer/ultisnips",
+        init = function()
+            vim.g.UltiSnipsExpandTrigger = '<tab>'
+            vim.g.UltiSnipsJumpForwardTrigger = '<tab>'
+            vim.g.UltiSnipsJumpBackwardTrigger = '<s-tab>'
+            vim.g.UltiSnipsSnippetDirectories={"ulti-snippets"}
+        end
+    },
     {
         "vimwiki/vimwiki",
         init = function()
@@ -11,10 +19,10 @@ return {
     -- Some weird dependency, I guess I'm not touching it
     "nvim-tree/nvim-web-devicons",
 
-    -- This is the way
     {
-        "m4xshen/hardtime.nvim",
-        dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
-        opts = {}
-    }
+        "subnut/nvim-ghost.nvim",
+        init = function()
+            vim.g.nvim_ghost_autostart = 0
+        end,
+    },
 }

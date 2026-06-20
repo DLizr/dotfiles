@@ -1,0 +1,26 @@
+#! /bin/bash
+
+. ~/.scripts/fuzzel_lib
+
+res=$(fuzzelQuery Shutdown "Off Screen\\nLock Screen\\nShutdown\\nReboot\\nKill Niri")
+
+case ${res} in
+    "Off Screen")
+        niri msg action power-off-monitors
+        ;;
+    "Lock Screen")
+        echo "Maybe it's time to implement it?"
+        ;;
+    "Shutdown")
+        shutdown now
+        ;;
+    "Reboot")
+        reboot
+        ;;
+    "Kill Niri")
+        niri msg action quit
+        ;;
+    *)
+        fuzzelQuery Shutdown "Invalid Argument: ${res}"
+        ;;
+esac
